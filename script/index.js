@@ -15,8 +15,8 @@ const modalTitle = document.querySelector('.modal__title')
 console.log('modalTitle: ', modalTitle);
 const modalForm = document.querySelector('.modal__form')
 console.log('modalForm: ', modalForm);
-const formTitle = modalForm.querySelector('#name')
-console.log('formTitle: ', formTitle);
+const inputName = modalForm.querySelector('#name')
+console.log('formTitle: ', inputName);
 const formDiscountCheckbox = modalForm.querySelector('#discount')
 console.log('formDiscountCheckbox: ', formDiscountCheckbox);
 const formDiscountCount = modalForm.querySelector('[name="discount_count"]')
