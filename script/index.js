@@ -21,3 +21,82 @@ const formDiscountCheckbox = modalForm.querySelector('#discount')
 console.log('formDiscountCheckbox: ', formDiscountCheckbox);
 const formDiscountCount = modalForm.querySelector('[name="discount_count"]')
 console.log('formDiscountCount: ', formDiscountCount);
+
+const overlay = document.querySelector('.overlay')
+overlay.classList.remove('overlay')
+
+const products = [
+  {
+    "id": 1,
+    "title": "Смартфон Xiaomi 11T 8/128GB",
+    "price": 27000,
+    "description": "Смартфон Xiaomi 11T – это представитель флагманской линейки, выпущенной во второй половине 2021 года. И он полностью соответствует такому позиционированию, предоставляя своим обладателям возможность пользоваться отличными камерами, ни в чем себя не ограничивать при запуске игр и других требовательных приложений.",
+    "category": "mobile-phone",
+    "discont": false,
+    "count": 3,
+    "images": {
+      "small": "img/smrtxiaomi11t-m.jpg",
+      "big": "img/smrtxiaomi11t-b.jpg"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Радиоуправляемый автомобиль Cheetan",
+    "price": 4000,
+    "description": "Внедорожник на дистанционном управлении. Скорость 25км/ч. Возраст 7 - 14 лет",
+    "category": "toys",
+    "discont": 5,
+    "count": 1,
+    "images": {
+      "small": "img/cheetancar-m.jpg",
+      "big": "img/cheetancar-b.jpg"
+    }
+  },
+  {
+    "id": 3,
+    "title": "ТВ приставка MECOOL KI",
+    "price": 12400,
+    "description": "Всего лишь один шаг сделает ваш телевизор умным, Быстрый и умный MECOOL KI PRO, прекрасно спроектированный, сочетает в себе прочный процессор Cortex-A53 с чипом Amlogic S905D",
+    "category": "tv-box",
+    "discont": 15,
+    "count": 4,
+    "images": {
+      "small": "img/tvboxmecool-m.jpg",
+      "big": "img/tvboxmecool-b.jpg"
+    }
+  }
+]
+
+function createRow(obj) {
+	const tr = document.createElement('tr')
+	const btnWrapper = document.querySelector('.table__cell_btn-wrapper').cloneNode(true)
+
+	tr.innerHTML = `
+		<td>${obj.id + 1}</td>
+		<td class="table__cell_left" data-id="${Date.now()}">
+		${obj.title}
+		</td>
+		<td class="table__cell_left">${obj.category}</td>
+		<td>шт</td>
+		<td>${obj.count}</td>
+		<td>${obj.price}</td>
+		<td>${obj.count * obj.price}</td>
+	`
+	tr.append(btnWrapper)
+
+	const tds = tr.querySelectorAll('td')
+	tds.forEach(td => td.classList.add('table__cell'))
+
+	return tr
+}
+
+function renderGoods(arr) {
+const tableBody = document.querySelector('.table__body')
+
+	arr.forEach(item => {
+		tableBody.append(createRow(item))
+	})
+
+	return tableBody
+}
+renderGoods(products)
