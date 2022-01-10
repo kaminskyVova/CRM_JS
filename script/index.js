@@ -10,15 +10,10 @@
 // На проверку присылайте ссылку на текущую ветку, после принятия работы куратором ветку сливаем в ветку dev и исходную ветку удаляем.
 
 const modalTitle = document.querySelector(".modal__title");
-console.log("modalTitle: ", modalTitle);
 const modalForm = document.querySelector(".modal__form");
-console.log("modalForm: ", modalForm);
 const inputName = modalForm.querySelector("#name");
-console.log("formTitle: ", inputName);
 const formDiscountCheckbox = modalForm.querySelector("#discount");
-console.log("formDiscountCheckbox: ", formDiscountCheckbox);
 const formDiscountCount = modalForm.querySelector('[name="discount_count"]');
-console.log("formDiscountCount: ", formDiscountCount);
 
 const overlay = document.querySelector(".overlay");
 overlay.classList.remove("overlay");
@@ -95,9 +90,35 @@ function renderGoods(arr) {
   const tableBody = document.querySelector(".table__body");
 
   arr.forEach((item) => {
-    tableBody.append(createRow(item)  ) 
+    tableBody.append(createRow(item));
   });
 
   return tableBody;
 }
 renderGoods(products);
+
+
+function openPopup() {
+  const btnAdd = document.querySelector('.panel__add-goods')
+  btnAdd.addEventListener('click', () => {
+    overlay.classList.add('overlay')
+  })
+}
+openPopup()
+
+function closePopUp() {
+  const btnClose = document.querySelector('.modal__close')
+  const modalOverlay = document.querySelector('.overlay__modal')
+  btnClose.addEventListener('click', () => {
+    overlay.classList.remove('overlay')
+  })
+
+  modalOverlay.addEventListener('click', e => {
+    e.stopPropagation();
+  })
+
+  overlay.addEventListener('click', () => {
+    overlay.classList.remove('overlay')
+  })
+}
+closePopUp()
