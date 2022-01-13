@@ -17,6 +17,8 @@ const formDiscountCount = modalForm.querySelector('[name="discount_count"]');
 
 const overlay = document.querySelector(".overlay");
 overlay.classList.remove("overlay");
+const modal = document.querySelector('.modal')
+modal.style.display = 'none'
 
 const products = [
   {
@@ -87,8 +89,10 @@ function createRow(obj) {
 }
 
 function renderGoods(arr) {
+  // console.log('arr: ', arr);
   const tableBody = document.querySelector(".table__body");
-
+  // const arr2 = arr.sort((a,b) => a.title < b.title ? 1 : -1)
+  // console.log('arr2: ', arr2);
   arr.forEach((item) => {
     tableBody.append(createRow(item));
   });
@@ -102,6 +106,7 @@ function openPopup() {
   const btnAdd = document.querySelector('.panel__add-goods')
   btnAdd.addEventListener('click', () => {
     overlay.classList.add('overlay')
+    modal.style.display = 'block'
   })
 }
 openPopup()
@@ -111,6 +116,7 @@ function closePopUp() {
   const modalOverlay = document.querySelector('.overlay__modal')
   btnClose.addEventListener('click', () => {
     overlay.classList.remove('overlay')
+    modal.style.display = 'none'
   })
 
   modalOverlay.addEventListener('click', e => {
@@ -119,6 +125,7 @@ function closePopUp() {
 
   overlay.addEventListener('click', () => {
     overlay.classList.remove('overlay')
+    modal.style.display = 'none'
   })
 }
 closePopUp()
