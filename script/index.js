@@ -1,13 +1,4 @@
 "use strict";
-// Создайте новый репозиторий для проекта crm
-// Создайте ветку dev и в версию dev загрузите файлы из архива crm.zip, так как показано во втором видео
-// Создайте новую ветку для этого урока, подключите js файл к странице и в константы получите 4 элемента из модального окна
-// 1. Заголовок
-// 2. Форма
-// 3. Чекбокс
-// 4. Поле рядом с чекбоксом
-// Именование констант должно быть говорящем за себя, по имени должно быть понятно какой элемент в константе хранится.
-// На проверку присылайте ссылку на текущую ветку, после принятия работы куратором ветку сливаем в ветку dev и исходную ветку удаляем.
 
 const modalTitle = document.querySelector(".modal__title");
 const modalForm = document.querySelector(".modal__form");
@@ -17,10 +8,12 @@ const formDiscountCount = modalForm.querySelector('[name="discount_count"]');
 
 const overlay = document.querySelector(".overlay");
 overlay.classList.remove("overlay");
-const modal = document.querySelector('.modal')
-modal.style.display = 'none'
+const modal = document.querySelector(".active");
+modal.style.display = "none";
 
-const products = [
+const table = document.querySelector("table");
+
+let products = [
   {
     id: 2,
     title: "Смартфон Xiaomi 11T 8/128GB",
@@ -67,6 +60,8 @@ const products = [
 
 function createRow(obj) {
   const tr = document.createElement("tr");
+  tr.classList.add("goods__row");
+
   const btnWrapper = document
     .querySelector(".table__cell_btn-wrapper")
     .cloneNode(true);
@@ -85,14 +80,17 @@ function createRow(obj) {
 	`;
   tr.append(btnWrapper);
 
-  return tr;
+  Array.from(table.querySelectorAll("tr"))
+    .slice(1)
+    .forEach((tr) => {
+      tr.classList.add("goods__row");
+    });
+
+  return table, tr;
 }
 
 function renderGoods(arr) {
-  // console.log('arr: ', arr);
   const tableBody = document.querySelector(".table__body");
-  // const arr2 = arr.sort((a,b) => a.title < b.title ? 1 : -1)
-  // console.log('arr2: ', arr2);
   arr.forEach((item) => {
     tableBody.append(createRow(item));
   });
@@ -101,31 +99,37 @@ function renderGoods(arr) {
 }
 renderGoods(products);
 
+function deleteGood() {
+  table.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target.closest(".table__btn_del")) {
+      target.closest(".goods__row").remove();
+      const data = Array.from(table.querySelectorAll(".goods__row"));
+      products = data;
+      console.dir(products);
+    }
+  });
+}
+deleteGood();
 
 function openPopup() {
-  const btnAdd = document.querySelector('.panel__add-goods')
-  btnAdd.addEventListener('click', () => {
-    overlay.classList.add('overlay')
-    modal.style.display = 'block'
-  })
+  const btnAdd = document.querySelector(".panel__add-goods");
+  btnAdd.addEventListener("click", () => {
+    overlay.classList.add("overlay");
+    modal.style.display = "block";
+  });
 }
-openPopup()
+openPopup();
 
 function closePopUp() {
-  const btnClose = document.querySelector('.modal__close')
-  const modalOverlay = document.querySelector('.overlay__modal')
-  btnClose.addEventListener('click', () => {
-    overlay.classList.remove('overlay')
-    modal.style.display = 'none'
-  })
+  const modalOverlay = document.querySelector(".active");
 
-  modalOverlay.addEventListener('click', e => {
-    e.stopPropagation();
-  })
-
-  overlay.addEventListener('click', () => {
-    overlay.classList.remove('overlay')
-    modal.style.display = 'none'
-  })
+  modalOverlay.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target.closest(".modal__close") || target === modalOverlay) {
+      overlay.classList.remove("overlay");
+      modal.style.display = "none";
+    }
+  });
 }
-closePopUp()
+closePopUp();
