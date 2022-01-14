@@ -7,8 +7,8 @@ const formDiscountCheckbox = modalForm.querySelector("#discount");
 const formDiscountCount = modalForm.querySelector('[name="discount_count"]');
 
 const overlay = document.querySelector(".overlay");
-overlay.classList.remove("overlay");
-const modal = document.querySelector(".active");
+overlay.classList.remove("active");
+const modal = document.querySelector(".modal");
 modal.style.display = "none";
 
 const table = document.querySelector("table");
@@ -115,19 +115,19 @@ deleteGood();
 function openPopup() {
   const btnAdd = document.querySelector(".panel__add-goods");
   btnAdd.addEventListener("click", () => {
-    overlay.classList.add("overlay");
+    overlay.classList.add("active");
     modal.style.display = "block";
   });
 }
 openPopup();
 
 function closePopUp() {
-  const modalOverlay = document.querySelector(".active");
+  const modalOverlay = document.querySelector(".overlay");
 
   modalOverlay.addEventListener("click", (e) => {
     const target = e.target;
     if (target.closest(".modal__close") || target === modalOverlay) {
-      overlay.classList.remove("overlay");
+      overlay.classList.remove("active");
       modal.style.display = "none";
     }
   });
