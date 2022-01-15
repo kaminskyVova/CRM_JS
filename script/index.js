@@ -11,11 +11,20 @@ overlay.classList.remove("active");
 const modal = document.querySelector(".modal");
 modal.style.display = "none";
 
-const table = document.querySelector("table");
+const table = document.querySelector(".table");
+const tableBody = document.querySelector(".table__body");
+
+const priceVal = document.querySelector("#price");
+const countVal = document.querySelector("#count");
+let modalTotalPrice = document.querySelector(".modal__total-price");
+let crmTotalPrice = document.querySelector(".crm__total-price");
+const vendorCode__id = document.querySelector(".vendor-code__id");
+let vendorId = "";
 
 let products = [
   {
-    id: 2,
+    id: 1,
+    vendorId: Date.now(),
     title: "Смартфон Xiaomi 11T 8/128GB",
     price: 27000,
     description:
@@ -23,13 +32,15 @@ let products = [
     category: "mobile-phone",
     discont: false,
     count: 3,
+    units: "шт",
     images: {
       small: "img/smrtxiaomi11t-m.jpg",
       big: "img/smrtxiaomi11t-b.jpg",
     },
   },
   {
-    id: 3,
+    id: 2,
+    vendorId: Date.now(),
     title: "Радиоуправляемый автомобиль Cheetan",
     price: 4000,
     description:
@@ -37,13 +48,15 @@ let products = [
     category: "toys",
     discont: 5,
     count: 1,
+    units: "шт",
     images: {
       small: "img/cheetancar-m.jpg",
       big: "img/cheetancar-b.jpg",
     },
   },
   {
-    id: 4,
+    id: 3,
+    vendorId: Date.now(),
     title: "ТВ приставка MECOOL KI",
     price: 12400,
     description:
@@ -51,12 +64,46 @@ let products = [
     category: "tv-box",
     discont: 15,
     count: 4,
+    units: "шт",
     images: {
       small: "img/tvboxmecool-m.jpg",
       big: "img/tvboxmecool-b.jpg",
     },
   },
+  {
+    id: 4,
+    vendorId: Date.now(),
+    title: "Витая пара PROConnect 01-0043-3-25",
+    price: 22,
+    description:
+      "Витая пара Proconnect 01-0043-3-25 является сетевым кабелем с 4 парами проводов типа UTP, в качестве проводника в которых используется алюминий, плакированный медью CCA. Такая неэкранированная витая пара с одножильными проводами диаметром 0.50 мм широко применяется в процессе сетевых монтажных работ. С ее помощью вы сможете обеспечить развертывание локальной сети в домашних условиях или на предприятии, объединить все необходимое вам оборудование в единую сеть.",
+    category: "cables",
+    discont: false,
+    count: 420,
+    units: "v",
+    images: {
+      small: "img/lan_proconnect43-3-25.jpg",
+      big: "img/lan_proconnect43-3-25-b.jpg",
+    },
+  },
 ];
+
+const addProductToData = (product) => {
+  console.log("product: ", product.name);
+  products.push({
+    id: 0,
+    title: product.name,
+    price: product.price,
+    description: product.description,
+    category: product.category,
+    discont: product.discont,
+    count: product.count,
+    units: product.units,
+    images: {},
+  });
+  console.log("products: ", products);
+  getTotalPrice(products);
+};
 
 function createRow(obj) {
   const tr = document.createElement("tr");
@@ -67,13 +114,13 @@ function createRow(obj) {
     .cloneNode(true);
 
   tr.innerHTML = `
-		<td class="table__cell">${obj.id + 1}</td>
+		<td class="table__cell">${obj.id + 2}</td>
 		<td class="table__cell table__cell_left table__cell_name" data-id="24601654816512">
-    <span class="table__cell-id">id: 24601654816512</span>
+    <span class="table__cell-id">id: ${obj.vendorId}</span>
 		${obj.title}
 		</td>
 		<td class="table__cell table__cell_left">${obj.category}</td>
-		<td class="table__cell">шт</td>
+		<td class="table__cell">${obj.units}</td>
 		<td class="table__cell">${obj.count}</td>
 		<td class="table__cell">$${obj.price}</td>
 		<td class="table__cell">$${obj.count * obj.price}</td>
@@ -90,7 +137,6 @@ function createRow(obj) {
 }
 
 function renderGoods(arr) {
-  const tableBody = document.querySelector(".table__body");
   arr.forEach((item) => {
     tableBody.append(createRow(item));
   });
@@ -106,7 +152,6 @@ function deleteGood() {
       target.closest(".goods__row").remove();
       const data = Array.from(table.querySelectorAll(".goods__row"));
       products = data;
-      console.dir(products);
     }
   });
 }
@@ -114,7 +159,9 @@ deleteGood();
 
 function openPopup() {
   const btnAdd = document.querySelector(".panel__add-goods");
+
   btnAdd.addEventListener("click", () => {
+    vendorId = vendorCode__id.textContent = `${Date.now()}`;
     overlay.classList.add("active");
     modal.style.display = "block";
   });
@@ -129,7 +176,69 @@ function closePopUp() {
     if (target.closest(".modal__close") || target === modalOverlay) {
       overlay.classList.remove("active");
       modal.style.display = "none";
+      modalTotalPrice.textContent = `$${0}`;
     }
   });
 }
 closePopUp();
+
+const addContactToPage = (product) => {
+  tableBody.append(createRow(product));
+  getTotalPrice(products);
+};
+
+function getModalPrice(product) {
+  modalTotalPrice.textContent = `$${product.price * product.count}`;
+}
+
+const formControl = () => {
+  const modalForm = document.querySelector(".modal__form");
+  const checkBox = modalForm.querySelector(".modal__checkbox");
+  const discountInput = modalForm.querySelector(".modal__input_discount");
+
+  modalTotalPrice.textContent = `$${0}`;
+
+  checkBox.addEventListener("click", () => {
+    if (checkBox.checked && discountInput.disabled === true) {
+      discountInput.disabled = false;
+    } else {
+      discountInput.disabled = true;
+    }
+  });
+
+  priceVal.addEventListener("change", () => {
+    modalTotalPrice.textContent = `$${priceVal.value * countVal.value}`;
+  });
+
+  countVal.addEventListener("change", () => {
+    modalTotalPrice.textContent = `$${priceVal.value * countVal.value}`;
+  });
+
+  modalForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const newProduct = Object.fromEntries(formData);
+    console.log('newContact: ', newProduct);
+
+    newProduct.vendorId = vendorId;
+    addProductToData(newProduct);
+    addContactToPage(newProduct);
+    modalForm.reset();
+    modalTotalPrice.textContent = `$${0}`;
+    overlay.classList.remove("active");
+
+    return newProduct;
+  });
+};
+
+formControl();
+
+function getTotalPrice(obj) {
+  let total = 0;
+  const count = obj.forEach((item) => {
+    total += item.price * item.count;
+  });
+  crmTotalPrice.textContent = `$${total}`;
+}
+getTotalPrice(products);
