@@ -94,7 +94,7 @@
 .goods__row::before {
   position: absolute;
   top: 24px;
-  counter-increment: section; 
-  content: counter(section);
+  counter-increment: row_id; 
+  content: counter(row_id);
   font-weight: 600;
 }
