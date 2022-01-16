@@ -139,13 +139,11 @@ function createRow(obj) {
 
 function renderGoods(arr) {
   let startIdCount = Date.now()
-  setTimeout(() => {
     arr.forEach((item) => {
       startIdCount += 20
       item.vendorId = Date.now() + startIdCount;
       tableBody.append(createRow(item));
     });
-  })
 
   return tableBody;
 }
