@@ -16,12 +16,15 @@
 .table__header-row {
   height: 45px;
   background: #F4F2FF;
+}
 
+.table__header-cell {
+  padding-left: 9px;
 }
 
 .table__header-cell_left {
   text-align: left;
-  padding: 0 20px;
+  padding: 10px 20px;
   font-size: 12px;
   font-weight: 600;
 }
@@ -82,4 +85,16 @@
 
 .table__btn_del {
   background-image: url("../img/delete.svg");
+}
+
+.goods__row {
+  position: relative;
+}
+
+.goods__row::before {
+  position: absolute;
+  top: 24px;
+  counter-increment: section; 
+  content: counter(section);
+  font-weight: 600;
 }

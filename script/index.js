@@ -20,6 +20,7 @@ let modalTotalPrice = document.querySelector(".modal__total-price");
 let crmTotalPrice = document.querySelector(".crm__total-price");
 const vendorCode__id = document.querySelector(".vendor-code__id");
 let vendorId = "";
+let count = 0;
 
 let products = [
   {
@@ -89,7 +90,7 @@ let products = [
 ];
 
 const addProductToData = (product) => {
-  console.log("product: ", product.name);
+  // console.log("product: ", product.name);
   products.push({
     id: 0,
     title: product.name,
@@ -101,11 +102,12 @@ const addProductToData = (product) => {
     units: product.units,
     images: {},
   });
-  console.log("products: ", products);
+  count++
+  // console.log("products: ", products);
   getTotalPrice(products);
 };
 
-function createRow(obj) {
+function createRow(obj, index = count) {
   const tr = document.createElement("tr");
   tr.classList.add("goods__row");
 
@@ -114,7 +116,6 @@ function createRow(obj) {
     .cloneNode(true);
 
   tr.innerHTML = `
-		<td class="table__cell">${obj.id + 2}</td>
 		<td class="table__cell table__cell_left table__cell_name" data-id="24601654816512">
     <span class="table__cell-id">id: ${obj.vendorId}</span>
 		${obj.title}
@@ -138,7 +139,8 @@ function createRow(obj) {
 
 function renderGoods(arr) {
   arr.forEach((item) => {
-    tableBody.append(createRow(item));
+    count++
+    tableBody.append(createRow(item, count));
   });
 
   return tableBody;
@@ -153,6 +155,7 @@ function deleteGood() {
       const data = Array.from(table.querySelectorAll(".goods__row"));
       products = data;
     }
+
   });
 }
 deleteGood();
@@ -219,7 +222,6 @@ const formControl = () => {
 
     const formData = new FormData(e.target);
     const newProduct = Object.fromEntries(formData);
-    console.log('newContact: ', newProduct);
 
     newProduct.vendorId = vendorId;
     addProductToData(newProduct);
@@ -236,7 +238,7 @@ formControl();
 
 function getTotalPrice(obj) {
   let total = 0;
-  const count = obj.forEach((item) => {
+  obj.forEach((item) => {
     total += item.price * item.count;
   });
   crmTotalPrice.textContent = `$${total}`;
