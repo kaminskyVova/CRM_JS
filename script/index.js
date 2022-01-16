@@ -1,6 +1,5 @@
 "use strict";
 
-
 let products = [
   {
     id: 1,
@@ -64,8 +63,6 @@ let products = [
   },
 ];
 
-
-
 const modalTitle = document.querySelector(".modal__title");
 const modalForm = document.querySelector(".modal__form");
 const inputName = modalForm.querySelector("#name");
@@ -80,17 +77,17 @@ modal.style.display = "none";
 const table = document.querySelector(".table");
 const tableBody = document.querySelector(".table__body");
 
-const priceVal = document.querySelector("#price");
-const countVal = document.querySelector("#count");
 let modalTotalPrice = document.querySelector(".modal__total-price");
 let crmTotalPrice = document.querySelector(".crm__total-price");
+const priceVal = document.querySelector("#price");
+const countVal = document.querySelector("#count");
+const unitsInput = document.querySelector("#units");
 const vendorCode__id = document.querySelector(".vendor-code__id");
 const discountInput = modalForm.querySelector(".modal__input_discount");
 const checkBox = modalForm.querySelector(".modal__checkbox");
-const inputTextarea = modalForm.querySelector('.modal__input_textarea')
+const inputTextarea = modalForm.querySelector(".modal__input_textarea");
 let vendorId = "";
 let count = 0;
-
 
 const addProductToData = (product) => {
   products.push({
@@ -138,12 +135,12 @@ function createRow(obj) {
 }
 
 function renderGoods(arr) {
-  let startIdCount = Date.now()
-    arr.forEach((item) => {
-      startIdCount += 20
-      item.vendorId = Date.now() + startIdCount;
-      tableBody.append(createRow(item));
-    });
+  let startIdCount = Date.now();
+  arr.forEach((item) => {
+    startIdCount += 20;
+    item.vendorId = Date.now() + startIdCount;
+    tableBody.append(createRow(item));
+  });
 
   return tableBody;
 }
@@ -183,10 +180,11 @@ function closePopUp() {
       modalTotalPrice.textContent = `$${0}`;
       priceVal.value = "";
       countVal.value = "";
+      unitsInput.value = "";
       discountInput.value = "";
       inputTextarea.value = "";
-      checkBox.checked = false
-      discountInput.disabled = true
+      checkBox.checked = false;
+      discountInput.disabled = true;
     }
   });
 }
@@ -209,6 +207,7 @@ const formControl = () => {
       discountInput.disabled = false;
     } else {
       discountInput.disabled = true;
+      discountInput.value = "";
     }
   });
 
