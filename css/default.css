@@ -14,7 +14,7 @@ body {
   min-width: 560px;
   min-height: 100vh;
 
-  counter-reset: section; 
+  counter-reset: row_id; 
 
   font-family: Inter, Arial, sans-serif;
   /* указать шрифт под проект*/
