@@ -1,9 +1,9 @@
 import { addProductToPage } from "./addToPage.js";
 import { addProductToData } from "./addToData.js";
 
-export const formControl = () => {
+export const formControl = (products) => {
   const modalForm = document.querySelector(".modal__form");
-	const overlay = document.querySelector(".overlay");
+  const overlay = document.querySelector(".overlay");
 
   let modalTotalPrice = document.querySelector(".modal__total-price");
   const priceVal = document.querySelector("#price");
@@ -11,6 +11,8 @@ export const formControl = () => {
   const discountInput = modalForm.querySelector(".modal__input_discount");
   const checkBox = modalForm.querySelector(".modal__checkbox");
   let vendorId = "";
+
+  const table = document.querySelector(".table");
 
   modalTotalPrice.textContent = `$${0}`;
 
@@ -36,8 +38,12 @@ export const formControl = () => {
 
     const formData = new FormData(e.target);
     const newProduct = Object.fromEntries(formData);
+    const rowsCount = Array.from(table.querySelectorAll(".goods__row"));
 
-    newProduct.vendorId = vendorId;
+    const vendorCode__id = document.querySelector(".vendor-code__id");
+    vendorId = vendorCode__id.textContent = `${rowsCount.length + 1}`;
+
+    newProduct.id = vendorId;
     addProductToData(newProduct);
     addProductToPage(newProduct);
     modalForm.reset();
@@ -48,24 +54,26 @@ export const formControl = () => {
   });
 };
 
-export function openPopup() {
+export function openPopup(products) {
   const overlay = document.querySelector(".overlay");
   const modal = document.querySelector(".modal");
 
   const vendorCode__id = document.querySelector(".vendor-code__id");
 
-  let vendorId = "";
+  const table = document.querySelector(".table");
+  const rowsCount = Array.from(table.querySelectorAll(".goods__row"));
 
   const btnAdd = document.querySelector(".panel__add-goods");
 
   btnAdd.addEventListener("click", () => {
-    vendorId = vendorCode__id.textContent = `${Date.now()}`;
+    products.vendorId = vendorCode__id.textContent = `${rowsCount.length + 1}`;
+    products.id = products.vendorId;
     overlay.classList.add("active");
     modal.style.display = "block";
   });
 }
 
-export function closePopUp() {
+export function closePopUp(products) {
   const modalForm = document.querySelector(".modal__form");
 
   const overlay = document.querySelector(".overlay");

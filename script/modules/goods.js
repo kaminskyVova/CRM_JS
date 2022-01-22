@@ -1,4 +1,5 @@
 import { createRow } from "./createElements.js";
+import { getTotalPrice } from "./getTotalPrice.js";
 
 export function renderGoods(arr) {
   const tableBody = document.querySelector(".table__body");
@@ -6,21 +7,27 @@ export function renderGoods(arr) {
   let startIdCount = Date.now();
   arr.forEach((item) => {
     startIdCount += 20;
-    item.vendorId = Date.now() + startIdCount;
+    item.vendorId = "";
     tableBody.append(createRow(item));
   });
 
   return tableBody;
 }
 
-export function deleteGood() {
-  const table = document.querySelector(".table");
-
-  table.addEventListener("click", (e) => {
+export function deleteGood(products) {
+  const tbody = document.querySelector(".table__body");
+  tbody.addEventListener("click", (e) => {
     const target = e.target;
-    if (target.closest(".table__btn_del")) {
-      target.closest(".goods__row").remove();
-      const data = Array.from(table.querySelectorAll(".goods__row"));
+    if (target.classList.contains("table__btn_del")) {
+      const currentTr = target.closest("tr");
+      const dataId = currentTr.querySelector("td:nth-child(1)").dataset.id;
+      currentTr.remove();
+      products.forEach((el, i) => {
+        if (el.id == dataId) {
+          products.splice(i, 1);
+        }
+        getTotalPrice(products);
+      });
     }
   });
 }
