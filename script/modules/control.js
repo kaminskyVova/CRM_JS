@@ -10,9 +10,7 @@ export const formControl = (products) => {
   const countVal = document.querySelector("#count");
   const discountInput = modalForm.querySelector(".modal__input_discount");
   const checkBox = modalForm.querySelector(".modal__checkbox");
-  let vendorId = "";
-
-  const table = document.querySelector(".table");
+  let vendorId = '';
 
   modalTotalPrice.textContent = `$${0}`;
 
@@ -38,10 +36,9 @@ export const formControl = (products) => {
 
     const formData = new FormData(e.target);
     const newProduct = Object.fromEntries(formData);
-    const rowsCount = Array.from(table.querySelectorAll(".goods__row"));
 
     const vendorCode__id = document.querySelector(".vendor-code__id");
-    vendorId = vendorCode__id.textContent = `${rowsCount.length + 1}`;
+    vendorId = vendorCode__id.textContent = Math.random().toString().substring(2, 10);
 
     newProduct.id = vendorId;
     addProductToData(newProduct);
@@ -50,30 +47,24 @@ export const formControl = (products) => {
     modalTotalPrice.textContent = `$${0}`;
     overlay.classList.remove("active");
 
-    return newProduct;
+    return{ newProduct};
   });
 };
 
-export function openPopup(products) {
+export function openPopup() {
   const overlay = document.querySelector(".overlay");
   const modal = document.querySelector(".modal");
-
   const vendorCode__id = document.querySelector(".vendor-code__id");
-
-  const table = document.querySelector(".table");
-  const rowsCount = Array.from(table.querySelectorAll(".goods__row"));
-
   const btnAdd = document.querySelector(".panel__add-goods");
 
   btnAdd.addEventListener("click", () => {
-    products.vendorId = vendorCode__id.textContent = `${rowsCount.length + 1}`;
-    products.id = products.vendorId;
+    vendorCode__id.textContent = Math.random().toString().substring(2, 10);
     overlay.classList.add("active");
     modal.style.display = "block";
   });
 }
 
-export function closePopUp(products) {
+export function closePopUp() {
   const modalForm = document.querySelector(".modal__form");
 
   const overlay = document.querySelector(".overlay");

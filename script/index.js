@@ -4,7 +4,7 @@ import { getTotalPrice } from "./modules/getTotalPrice.js";
 
 let products = [
   {
-    id: 1,
+    id: Math.random().toString().substring(2, 10),
     title: "Смартфон Xiaomi 11T 8/128GB",
     price: 27000,
     description:
@@ -19,7 +19,7 @@ let products = [
     },
   },
   {
-    id: 2,
+    id: Math.random().toString().substring(2, 10),
     title: "Радиоуправляемый автомобиль Cheetan",
     price: 4000,
     description:
@@ -34,7 +34,7 @@ let products = [
     },
   },
   {
-    id: 3,
+    id: Math.random().toString().substring(2, 10),
     title: "ТВ приставка MECOOL KI",
     price: 12400,
     description:
@@ -49,7 +49,7 @@ let products = [
     },
   },
   {
-    id: 4,
+    id: Math.random().toString().substring(2, 10),
     title: "Витая пара PROConnect 01-0043-3-25",
     price: 22,
     description:
@@ -73,8 +73,9 @@ let products = [
 
   renderGoods(products);
   deleteGood(products);
-  openPopup(products);
-  closePopUp(products);
+  openPopup();
+  closePopUp();
   formControl(products);
   getTotalPrice(products);
+
 }

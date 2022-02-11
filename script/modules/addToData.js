@@ -3,7 +3,6 @@ import { products } from "../../data.js";
 
 export const addProductToData = (product) => {
   products.push({
-    id: products.length + 1,
     title: product.name,
     price: product.price,
     description: product.description,

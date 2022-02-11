@@ -1,3 +1,5 @@
+import { showGoodsImg } from "./addToPage.js";
+
 export function createRow(obj) {
   const table = document.querySelector(".table");
 
@@ -15,17 +17,18 @@ export function createRow(obj) {
 		<td class="table__cell">$${obj.price}</td>
 		<td class="table__cell">$${obj.count * obj.price}</td>
     <td class="table__cell table__cell_btn-wrapper">
-      <button class="table__btn table__btn_pic"></button>
+      <button class="table__btn table__btn_pic" data-pic='../../screenshot.png'></button>
       <button class="table__btn table__btn_edit"></button>
       <button class="table__btn table__btn_del"></button>
     </td>
 	`;
-
   Array.from(table.querySelectorAll("tr"))
     .slice(1)
     .forEach((tr) => {
       tr.classList.add("goods__row");
     });
+
+    showGoodsImg(tr)
 
   return table, tr;
 }
