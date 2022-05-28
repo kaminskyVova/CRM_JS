@@ -359,3 +359,10 @@
     margin-bottom: 20px;
   }
 }
+
+
+.error__img {
+  display: none;
+  color: rgb(242, 12, 12);
+  text-transform: uppercase;
+}
