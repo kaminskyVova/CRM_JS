@@ -30,7 +30,12 @@
 
       <div class="crm__goods goods">
         <div class="goods__panel panel">
-          <button class="panel__filter">Фильтр</button>
+          <input class="panel__filter" list="filter-list" placeholder="Фильтр по категории">
+
+          <datalist class="filter-list" id="filter-list">
+            <!-- <option value="Мобильный телефон"></option> -->
+          </datalist>
+
           <form class="panel__search">
             <input type="search" class="panel__input" placeholder="Поиск по наименованию и категории">
           </form>
@@ -51,42 +56,6 @@
               </tr>
             </thead>
             <tbody class="table__body">
-              <!-- <tr>
-                <td class="table__cell">1</td>
-                <td class="table__cell table__cell_left table__cell_name" data-id="24601654816512">
-                  <span class="table__cell-id">id: 1</span>
-                  Навигационная система Soundmax</td>
-                <td class="table__cell table__cell_left">Техника для дома</td>
-                <td class="table__cell">шт</td>
-                <td class="table__cell">5</td>
-                <td class="table__cell">$100</td>
-                <td class="table__cell">$500</td>
-                <td class="table__cell table__cell_btn-wrapper">
-                  <button class="table__btn table__btn_pic"></button>
-                  <button class="table__btn table__btn_edit"></button>
-                  <button class="table__btn table__btn_del"></button>
-                </td>
-              </tr>
-              <tr>
-                <td class="table__cell ">2</td>
-                <td class="table__cell table__cell_left table__cell_name" data-id="24601654816512">
-                  <span class="table__cell-id">id: 2</span>Телевизор DEXP</td>
-                <td class="table__cell table__cell_left">Техника для дома</td>
-                <td class="table__cell">шт</td>
-                <td class="table__cell">15</td>
-                <td class="table__cell">$1000</td>
-                <td class="table__cell">$15000</td>
-                <td class="table__cell table__cell_btn-wrapper">
-                  <button class="table__btn table__btn_pic"></button>
-                  <button class="table__btn table__btn_edit"></button>
-                  <button class="table__btn table__btn_del"></button>
-                </td>
-              </tr> -->
-              <!-- <td class="table__cell table__cell_btn-wrapper" >
-                <button class="table__btn table__btn_pic"></button>
-                <button class="table__btn table__btn_edit"></button>
-                <button class="table__btn table__btn_del"></button>
-              </td> -->
             </tbody>
           </table>
 
@@ -104,9 +73,30 @@
     </div>
   </section>
 
+  <div class="modal__server-error">
+    <button class="modal__error-close">
+      <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 2 20 20M2 22 22 2" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      </svg>
+    </button>
+    <div class="svg__icon"></div>
+    <p class="description">Что-то пошло не так</p>
+  </div>
+
 
   <div class="overlay">
     <div class="overlay__modal modal">
+
+      <div class="modal__server-error">
+        <button class="modal__error-close">
+          <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="m2 2 20 20M2 22 22 2" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+          </svg>
+        </button>
+        <div class="svg__icon"></div>
+        <p class="description">Что-то пошло не так</p>
+      </div>
+
       <button class="modal__close">
         <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="m2 2 20 20M2 22 22 2" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
@@ -147,8 +137,12 @@
 
           <label class="modal__label modal__label_category" for="category">
             <span class="modal__text">Категория</span>
-            <input class="modal__input" type="text" name="category" id="category" required>
+            <input class="modal__input" type="text" name="category" id="category" list="category-list" required>
           </label>
+
+          <datalist class="category-list" id="category-list">
+
+          </datalist>
 
           <label class="modal__label modal__label_description" for="description">
             <span class="modal__text">Описание</span>
@@ -183,16 +177,23 @@
           <p class="error__img">Изображение не должно превышать размер 1 МБ</p>
 
           <label tabindex="0" for="image" class="modal__label modal__label_file">Добавить изображение</label>
-          <input class="modal__file visually-hidden" tabindex="-1" type="file" name="image" id="image">
+          <input class="modal__file visually-hidden" tabindex="-1" type="file" name="image" id="image" accept="image">
         </fieldset>
-        
+
+        <div class="img__preview">
+          <img class="loaded__img" src="" alt="preview">
+        </div>
+
 
         <div class="modal__footer">
           <label class="modal__total">Итоговая стоимость:
             <output class="modal__total-price" name="total">$ 900.00</output>
           </label>
 
+
           <button class="modal__submit" type="submit">Добавить товар</button>
+
+
         </div>
       </form>
     </div>

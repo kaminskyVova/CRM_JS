@@ -1,6 +1,6 @@
 import { createRow } from "./createElements.js";
 
-export const showGoodsImg = (tr) => {
+export const showGoodsImg = (tr, obj) => {
   const productsAttr = tr.querySelector(".table__btn_pic");
   productsAttr.addEventListener("click", (e) => {
     const target = e.target;
