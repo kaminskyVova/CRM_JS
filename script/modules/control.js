@@ -102,7 +102,7 @@ export const formControl = (products) => {
     newProduct.image = await toBase64(newProduct.image);
 
     const addToDb = async () => {
-      fetch("http://localhost:3000/api33/goods", {
+      fetch("http://localhost:3000/api/goods", {
         method: "POST",
         body: JSON.stringify({
           id: newProduct.id,
