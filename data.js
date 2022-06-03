@@ -12,20 +12,15 @@ export const createSelect = async (className) => {
 
   productsFromDb.forEach((category) => {
     document
-      .querySelector(`.${className}`)
+      .querySelector(`.${"filter-list"}`)
       .insertAdjacentHTML(
         "afterbegin",
         `<option value="${category}"></option>`
       );
   });
-  document
-    .querySelector(`.${className}`)
-    .insertAdjacentHTML(
-      "afterbegin",
-      `<option value="Все категории"></option>`
-    );
 };
-createSelect('filter-list');
+
+// createSelect();
 
 export const getFilteredGoods = async (category) => {
   const response = await fetch(

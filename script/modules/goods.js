@@ -58,7 +58,7 @@ const renderChangedGoods = async () => {
   getFilteredGoodsBy(productsFromDb);
 };
 
-export const changeGood = (products) => {
+export const setModifyGood = (products) => {
   const tbody = document.querySelector(".table__body");
   const modal = document.querySelector(".modal");
   const overlay = document.querySelector(".overlay");

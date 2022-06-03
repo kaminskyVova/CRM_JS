@@ -43,7 +43,21 @@ export const toBase64 = (file) =>
     reader.readAsDataURL(file);
   });
 
-createSelect("category-list");
+  export const createModalSelect = async (className) => {
+    const response = await fetch(`http://localhost:3000/api/category`);
+    let productsFromDb = await response.json();
+  
+    productsFromDb.forEach((category) => {
+      document
+        .querySelector(`.${"category-list"}`)
+        .insertAdjacentHTML(
+          "afterbegin",
+          `<option value="${category}"></option>`
+        );
+    });
+  };
+
+  createModalSelect();
 
 
 
