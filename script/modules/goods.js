@@ -154,12 +154,13 @@ export const setModifyGood = (products) => {
           if (response.status === 200 || response.status === 201) {
             overlay.classList.remove("active");
             renderChangedGoods();
+            location.reload();
           } else {
             openErrorPopup();
             closeErrorPoUp();
           }
         });
-        location.reload();
+        
       });
     }
   });

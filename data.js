@@ -10,6 +10,7 @@ export const createSelect = async (className) => {
   const response = await fetch(`http://localhost:3000/api/category`);
   let productsFromDb = await response.json();
 
+
   productsFromDb.forEach((category) => {
     document
       .querySelector(`.${"filter-list"}`)

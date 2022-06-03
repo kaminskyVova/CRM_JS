@@ -102,7 +102,7 @@ export const formControl = (products) => {
     newProduct.image = await toBase64(newProduct.image);
 
     const addToDb = async () => {
-      fetch("http://localhost:3000/api/goods", {
+      fetch("http://localhost:3000/api33/goods", {
         method: "POST",
         body: JSON.stringify({
           id: newProduct.id,
@@ -124,13 +124,14 @@ export const formControl = (products) => {
           overlay.classList.remove("active");
           modalForm.reset();
           closePopUp();
+          location.reload();
         } else {
           openErrorPopup();
           closeErrorPoUp();
         }
       });
     };
-    location.reload();
+    
     addToDb();
     return { newProduct };
   });
